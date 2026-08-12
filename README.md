@@ -2,31 +2,114 @@
 
 ### AI-Powered Document Authenticity Detection
 
-> **Detect forged documents with deep-learning-powered image classification.**
+> **Detect forged documents using a fine-tuned MobileNetV2 deep-learning model with a FastAPI backend and a modern web frontend.**
 
-DocShield AI is an AI-powered document authenticity detection system that analyzes document images and classifies them as **Genuine** or **Forged** using a trained **MobileNetV2** deep-learning model.
-
-**DocShield AI V2** is the second version of the project, evolving from the original Streamlit-based application into a more production-oriented architecture with a dedicated **FastAPI backend** and a modern **HTML, CSS, and JavaScript frontend**.
+DocShield AI V2 is the second version of the DocShield AI project, evolving the original Streamlit application into a more structured **FastAPI + HTML/CSS/JavaScript architecture**.
 
 ---
 
-## 🚀 V2 Evolution
+## 🔗 Important: Model Training & Dataset
 
-The original DocShield AI was developed and deployed using **Streamlit**, providing a fast way to build and validate the AI application.
+**DocShield AI V2 is an inference-focused application.**
 
-With V2, the project has been redesigned with a clear separation between the AI backend and user interface.
+The trained model used by V2 was developed in the original **DocShield AI V1** project using a document-image dataset, TensorFlow data preprocessing, **MobileNetV2 transfer learning**, and fine-tuning.
 
-### V1
+### 📚 DocShield AI V1 — Training & Dataset
+
+The complete training pipeline, dataset structure, preprocessing code, model-training code, evaluation workflow, and original Streamlit implementation are maintained separately in the V1 repository:
+
+👉 **[DocShield AI V1 — Training & Dataset Repository](https://github.com/MonishRajAT/DocSheild-AI-Project)**
+
+The V1 repository contains the components used to develop the trained model, including:
 
 ```text
-Streamlit UI
-     ↓
-Python Prediction Logic
-     ↓
-MobileNetV2 Model
+dataset/
+├── train/
+└── validation/
+
+train.py
+preprocessing.py
+predict.py
+models/
+└── docshield_model.keras
 ```
 
-### V2
+The V1 model-development workflow includes:
+
+```text
+Dataset
+   ↓
+Image Preprocessing
+   ↓
+TensorFlow Data Pipeline
+   ↓
+MobileNetV2
+   ↓
+Transfer Learning
+   ↓
+Fine-Tuning
+   ↓
+Trained Model
+   ↓
+DocShield AI V2
+```
+
+The original project uses **MobileNetV2 pretrained on ImageNet**, followed by transfer learning and fine-tuning for binary document authenticity classification between **Genuine** and **Forged** documents.
+
+### Why isn't the dataset in V2?
+
+The V2 repository is intentionally focused on **model inference and application delivery**.
+
+The dataset and model-training pipeline are kept in V1 so that:
+
+* V2 remains lightweight and deployment-focused
+* Training and inference responsibilities stay separated
+* The original dataset and experimentation pipeline remain reproducible
+* V2 can focus on serving the already-trained model through an API
+
+**In simple terms:**
+
+> **V1 = Train the AI model**
+> **V2 = Serve and use the trained AI model**
+
+---
+
+# 🚀 V1 → V2 Evolution
+
+## DocShield AI V1
+
+The original version was built as an end-to-end deep-learning application using Streamlit.
+
+```text
+Dataset
+   ↓
+Preprocessing
+   ↓
+MobileNetV2
+   ↓
+Transfer Learning
+   ↓
+Fine-Tuning
+   ↓
+Trained Model
+   ↓
+Streamlit
+   ↓
+Prediction
+```
+
+V1 focused on:
+
+* Dataset preparation
+* Model training
+* Transfer learning
+* Fine-tuning
+* Model evaluation
+* Streamlit deployment
+
+## DocShield AI V2
+
+V2 takes the trained model from V1 and focuses on application architecture and inference.
 
 ```text
 HTML + CSS + JavaScript
@@ -35,118 +118,91 @@ HTML + CSS + JavaScript
           ↓
  Prediction Service
           ↓
-      MobileNetV2
+   Trained MobileNetV2
           ↓
  Genuine / Forged
 ```
 
-This architecture makes the system easier to maintain, integrate, extend, and deploy as a dedicated AI application.
+V2 focuses on:
+
+* REST API architecture
+* Dedicated FastAPI backend
+* Reusable prediction service
+* Structured API schemas
+* Modern frontend
+* Separation of frontend and backend
+* Production-oriented inference workflow
 
 ---
 
-# ✨ Features
+# 🧠 Model Lineage
 
-* 🤖 **AI-Powered Document Verification**
-* 🧠 **MobileNetV2 Deep Learning Model**
-* 📄 **Document Image Upload**
-* 🔍 **Genuine / Forged Classification**
-* 📊 **Prediction Confidence Score**
-* ⚡ **FastAPI REST API**
-* 🎨 **Modern Premium Web Interface**
-* 🖱️ **Drag-and-Drop Upload**
-* 📱 **Responsive Frontend**
-* 🔐 **Backend File-Type Validation**
-* ⚠️ **User-Friendly Error Handling**
-* 📖 **Automatic FastAPI API Documentation**
+The model used by V2 is **not trained inside the V2 application**.
 
----
-
-# 🧠 How It Works
-
-DocShield AI follows a simple AI inference pipeline:
+Its lineage is:
 
 ```text
-                 DOCUMENT IMAGE
-                       │
-                       ▼
-              ┌─────────────────┐
-              │   File Upload   │
-              └────────┬────────┘
-                       │
-                       ▼
-              ┌─────────────────┐
-              │     FastAPI     │
-              │    REST API     │
-              └────────┬────────┘
-                       │
-                       ▼
-              ┌─────────────────┐
-              │ Image Processing│
-              │   224 × 224     │
-              └────────┬────────┘
-                       │
-                       ▼
-              ┌─────────────────┐
-              │   MobileNetV2   │
-              │  Deep Learning  │
-              │      Model      │
-              └────────┬────────┘
-                       │
-                       ▼
-             ┌───────────────────┐
-             │ Genuine / Forged  │
-             │    + Confidence   │
-             └───────────────────┘
+V1 Dataset
+    ↓
+V1 Preprocessing
+    ↓
+V1 MobileNetV2 Transfer Learning
+    ↓
+V1 Fine-Tuning
+    ↓
+docshield_model.keras
+    ↓
+V2 FastAPI Inference
+    ↓
+V2 Web Interface
+```
+
+This means the V2 `models/docshield_model.keras` file is the **trained inference artifact produced from the V1 model-development pipeline**.
+
+For anyone interested in reproducing or retraining the model, start with the V1 repository:
+
+👉 **https://github.com/MonishRajAT/DocSheild-AI-Project**
+
+---
+
+# 🏗️ V2 Architecture
+
+```text
+                     DOCSHIELD AI V2
+
+                 ┌───────────────────┐
+                 │   Web Frontend    │
+                 │ HTML / CSS / JS   │
+                 └─────────┬─────────┘
+                           │
+                           │ REST API
+                           ▼
+                 ┌───────────────────┐
+                 │      FastAPI      │
+                 │      Backend      │
+                 └─────────┬─────────┘
+                           │
+                           ▼
+                 ┌───────────────────┐
+                 │ Prediction Service│
+                 └─────────┬─────────┘
+                           │
+                           ▼
+                 ┌───────────────────┐
+                 │ MobileNetV2 Model │
+                 │  docshield_model  │
+                 └─────────┬─────────┘
+                           │
+                           ▼
+                    Genuine / Forged
 ```
 
 ---
 
-# 🧪 Model & Prediction
-
-The system uses a trained **MobileNetV2** model for document image classification.
-
-### Input
-
-Document image:
-
-* JPG
-* JPEG
-* PNG
-* WEBP
-
-### Image Processing
-
-Images are:
-
-1. Converted to RGB
-2. Resized to `224 × 224`
-3. Converted into a numerical array
-4. Processed using MobileNetV2 preprocessing
-
-### Output
-
-The API returns:
-
-```json
-{
-  "prediction": "Genuine",
-  "confidence": 97.42,
-  "probability": 0.9742
-}
-```
-
-Where:
-
-* `prediction` → Genuine or Forged
-* `confidence` → Prediction confidence percentage
-* `probability` → Raw probability for the Genuine class
-
----
-
-# 🏗️ Project Architecture
+# 📂 V2 Project Structure
 
 ```text
-DocShield-AI/
+DocShield-AI-V2/
 │
 ├── backend/
 │   ├── __init__.py
@@ -164,12 +220,9 @@ DocShield-AI/
 │
 ├── frontend/
 │   ├── index.html
-│   ├── css/
-│   │   └── style.css
-│   ├── js/
-│   │   └── app.js
-│   └── assets/
-│
+│   ├── style.css
+│   │── app.js
+│   
 ├── .gitignore
 ├── .python-version
 ├── requirements.txt
@@ -178,77 +231,11 @@ DocShield-AI/
 
 ---
 
-# ⚙️ Technology Stack
+# 🔌 API
 
-### Backend
+### `POST /api/predict`
 
-* **Python**
-* **FastAPI**
-* **Uvicorn**
-* **Pydantic**
-
-### Artificial Intelligence
-
-* **TensorFlow**
-* **Keras**
-* **MobileNetV2**
-* **NumPy**
-* **Pillow**
-* **OpenCV**
-* **Scikit-learn**
-
-### Frontend
-
-* **HTML5**
-* **CSS3**
-* **Vanilla JavaScript**
-
-### API
-
-* REST API
-* JSON responses
-* Multipart file upload
-* FastAPI Swagger documentation
-
----
-
-# 🔌 API Endpoints
-
-## Root
-
-```http
-GET /
-```
-
-Returns the API status.
-
----
-
-## Health Check
-
-```http
-GET /health
-```
-
-Used to verify that the backend is running correctly.
-
----
-
-## Document Prediction
-
-```http
-POST /api/predict
-```
-
-### Request
-
-Multipart form-data:
-
-```text
-file = document image
-```
-
-### Response
+Accepts a document image and returns:
 
 ```json
 {
@@ -258,18 +245,82 @@ file = document image
 }
 ```
 
+### `GET /health`
+
+Checks whether the backend is running.
+
+### `GET /`
+
+Returns basic API information.
+
 ---
 
-# 🖥️ Running Locally
+# 🧪 Inference Pipeline
 
-## 1. Clone the repository
-
-```bash
-git clone <YOUR_REPOSITORY_URL>
-cd DocShield-AI
+```text
+Uploaded Document
+       ↓
+File Validation
+       ↓
+RGB Conversion
+       ↓
+Resize → 224 × 224
+       ↓
+MobileNetV2 Preprocessing
+       ↓
+Trained Model
+       ↓
+Prediction Probability
+       ↓
+Genuine / Forged
+       ↓
+Confidence Score
+       ↓
+Frontend Result
 ```
 
-## 2. Create a virtual environment
+---
+
+# 🛠️ Technology Stack
+
+### V2 Application
+
+* Python
+* FastAPI
+* Uvicorn
+* TensorFlow
+* Keras
+* MobileNetV2
+* NumPy
+* Pillow
+* OpenCV
+* HTML5
+* CSS3
+* Vanilla JavaScript
+
+### V1 Model Development
+
+* TensorFlow
+* Keras
+* MobileNetV2
+* TensorFlow Dataset Pipeline
+* OpenCV
+* Scikit-learn
+* Matplotlib
+* Streamlit
+
+---
+
+# ▶️ Running V2 Locally
+
+Clone the V2 repository:
+
+```bash
+git clone <V2_REPOSITORY_URL>
+cd DocShield-AI-V2
+```
+
+Create a virtual environment:
 
 ```bash
 python -m venv .venv
@@ -281,86 +332,44 @@ Activate it on Windows:
 .venv\Scripts\activate
 ```
 
-## 3. Install dependencies
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## 4. Start the FastAPI backend
-
-Run from the project root:
+Start FastAPI:
 
 ```bash
 uvicorn backend.main:app --reload
 ```
 
-The API will be available at:
+API:
 
 ```text
 http://127.0.0.1:8000
 ```
 
----
-
-# 📖 API Documentation
-
-FastAPI automatically provides interactive API documentation.
-
-### Swagger UI
+Swagger documentation:
 
 ```text
 http://127.0.0.1:8000/docs
 ```
 
-### OpenAPI Schema
-
-```text
-http://127.0.0.1:8000/openapi.json
-```
-
----
-
-# 🎯 V1 → V2
-
-DocShield AI V2 represents an architectural evolution rather than a complete replacement of the original AI system.
-
-### DocShield AI V1
-
-* Streamlit-based application
-* Integrated UI and Python inference
-* Rapid AI prototype
-* Deployed Streamlit application
-
-### DocShield AI V2
-
-* Dedicated FastAPI backend
-* REST API architecture
-* Separate frontend
-* HTML/CSS/JavaScript UI
-* Reusable prediction service
-* Structured API schemas
-* Better separation of concerns
-* Production-oriented project structure
-
-The trained model and core prediction concept remain central to both versions.
-
 ---
 
 # 🔮 Future Improvements
 
-Potential future improvements include:
-
-* User authentication
-* Document verification history
-* Database integration
-* Batch document analysis
-* Advanced document manipulation detection
-* Explainable AI insights
-* Model performance monitoring
+* PDF document support
+* OCR integration
+* Explainable AI with Grad-CAM
+* Batch document processing
+* Authentication
+* Verification history
 * Cloud deployment
 * API authentication and rate limiting
-* Automated model retraining pipeline
+* Multi-class document verification
+* Model monitoring and retraining pipeline
 
 ---
 
@@ -368,7 +377,7 @@ Potential future improvements include:
 
 DocShield AI is an AI-based document classification system intended for research, experimentation, and educational purposes.
 
-AI predictions should not be treated as definitive proof of document authenticity in high-stakes or legal situations.
+Predictions should not be treated as definitive proof of document authenticity in high-stakes, legal, or financial decisions.
 
 ---
 
@@ -377,9 +386,10 @@ AI predictions should not be treated as definitive proof of document authenticit
 **Monish Raj A T**
 
 B.Tech — Artificial Intelligence & Machine Learning
+University Visvesvaraya College of Engineering (UVCE)
 
 ---
 
 ## ⭐ Project
 
-If you find this project interesting, consider giving the repository a ⭐ on GitHub.
+If you find DocShield AI interesting, consider starring the repository.
