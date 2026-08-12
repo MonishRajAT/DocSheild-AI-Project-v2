@@ -9,7 +9,7 @@
   "use strict";
 
   // ---------- Configuration ----------
-  const API_BASE_URL = "http://127.0.0.1:8000";
+  const API_BASE_URL = "https://docsheild-ai-api.onrender.com";
   const PREDICT_ENDPOINT = `${API_BASE_URL}/api/predict`;
   const ALLOWED_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"];
   const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp"];
