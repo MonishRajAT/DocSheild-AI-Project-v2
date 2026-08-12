@@ -1,0 +1,18 @@
+[project]
+name = "docsheild-ai-v2"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "matplotlib>=3.9.0",
+    "numpy>=1.26.4",
+    "opencv-python>=4.10.0",
+    "pandas>=2.2.2",
+    "pillow>=10.4.0",
+    "python-multipart>=0.0.9",
+    "scikit-learn>=1.5.1",
+    "tensorflow>=2.16.0",
+    "uvicorn[standard]>=0.30.6",
+]
